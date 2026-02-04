@@ -13,189 +13,132 @@
       font-family: 'Inter', sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
+      min-height: 200vh;
+      background: radial-gradient(circle at top, #1e2a47, #090b14 70%);
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #1e2a47, #090b14 65%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      overflow: hidden;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .card {
-      position: relative;
-      z-index: 1;
-      background: rgba(20, 22, 40, 0.85);
-      backdrop-filter: blur(16px);
-      border-radius: 26px;
-      padding: 52px 42px;
-      max-width: 440px;
-      width: 100%;
       text-align: center;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     h1 {
-      font-size: 2.6rem;
-      margin-bottom: 12px;
+      font-size: 3rem;
       font-weight: 800;
-      letter-spacing: -1px;
     }
 
-    p {
-      color: #c7cad3;
-      font-size: 1.02rem;
-      line-height: 1.5;
-      margin-bottom: 38px;
+    .scroll {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #aaa;
+      animation: float 2.5s ease-in-out infinite;
     }
 
-    .buttons {
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    /* PROFILE SECTION */
+    .profile-section {
       display: flex;
-      flex-direction: column;
-      gap: 18px;
+      justify-content: center;
+      padding: 120px 20px;
     }
 
-    .btn {
-      text-decoration: none;
-      padding: 16px 20px;
-      border-radius: 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
+    .profile-card {
+      background: rgba(20, 22, 40, 0.85);
+      backdrop-filter: blur(16px);
+      border-radius: 26px;
+      padding: 40px;
+      width: 360px;
+      text-align: center;
+      position: relative;
+      animation: fadeUp 1s ease forwards;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
     }
 
-    .btn.invite {
-      background: linear-gradient(135deg, #5865f2, #404eed);
-      color: white;
-      box-shadow: 0 10px 30px rgba(88, 101, 242, 0.45);
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .btn.server {
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+    /* Animated outline */
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 28px;
+      background: linear-gradient(
+        120deg,
+        #5865f2,
+        #9b59ff,
+        #5865f2
+      );
+      background-size: 300% 300%;
+      animation: glow 6s linear infinite;
+      z-index: -1;
+      filter: blur(10px);
     }
 
-    .btn:hover {
-      transform: translateY(-3px);
+    @keyframes glow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    .btn.invite:hover {
-      box-shadow: 0 15px 45px rgba(88, 101, 242, 0.7);
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      box-shadow: 0 0 45px rgba(88, 101, 242, 0.75);
     }
 
-    footer {
-      margin-top: 38px;
-      font-size: 0.8rem;
-      color: #8b8fa3;
+    .username {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .display {
+      color: #b9bbbe;
+      font-size: 0.95rem;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
     }
   </style>
 </head>
 
 <body>
-  <!-- ❄️ Snow -->
-  <canvas id="snow"></canvas>
-
-  <div class="card">
-    <h1>❄️ GridBot</h1>
-
-    <p>
-      <strong>Discord best economy bot 🔥</strong><br>
-      Very fun economy bot with alot of commands, good small community.
-    </p>
-
-    <div class="buttons">
-      <a
-        class="btn invite"
-        href="https://discord.com/oauth2/authorize?client_id=1383739264671551488&permissions=280576&integration_type=0&scope=bot"
-        target="_blank"
-      >
-        Bot invite
-      </a>
-
-      <a
-        class="btn server"
-        href="https://discord.gg/T7zXbTTAn4"
-        target="_blank"
-      >
-        Join the dc server
-      </a>
+  <section class="hero">
+    <div>
+      <h1>❄️ GridBot</h1>
+      <div class="scroll">scroll down ↓</div>
     </div>
+  </section>
 
-    <footer>
-      © 2026 • Built with GitHub Pages
-    </footer>
-  </div>
-  <script>
-    const canvas = document.getElementById("snow");
-    const ctx = canvas.getContext("2d");
+  <section class="profile-section" id="about">
+    <div class="profile-card">
+      <img
+        class="avatar"
+        src="https://cdn.discordapp.com/avatars/1305574290988466260/3b37446ac9705548a4b8ae8da1ce63ce.png?size=4096"
+        alt="Discord Avatar"
+      />
 
-    let width, height;
-    let snowflakes = [];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resize);
-    resize();
-
-    function createSnowflakes() {
-      snowflakes = [];
-      for (let i = 0; i < 120; i++) {
-        snowflakes.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: Math.random() * 2 + 1,
-          d: Math.random() + 0.5,
-        });
-      }
-    }
-
-    function drawSnow() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-      ctx.beginPath();
-
-      for (let flake of snowflakes) {
-        ctx.moveTo(flake.x, flake.y);
-        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
-      }
-
-      ctx.fill();
-      moveSnow();
-    }
-
-    function moveSnow() {
-      for (let flake of snowflakes) {
-        flake.y += Math.pow(flake.d, 2);
-        flake.x += Math.sin(flake.y * 0.01);
-
-        if (flake.y > height) {
-          flake.y = -5;
-          flake.x = Math.random() * width;
-        }
-      }
-    }
-
-    function update() {
-      drawSnow();
-      requestAnimationFrame(update);
-    }
-
-    createSnowflakes();
-    update();
-  </script>
+      <div class="username">redtree266</div>
+      <div class="display">galaxtree</div>
+    </div>
+  </section>
 </body>
 </html>
