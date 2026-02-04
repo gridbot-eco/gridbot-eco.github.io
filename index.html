@@ -21,6 +21,14 @@
       margin: 0;
       background: radial-gradient(circle at top, #1e2a47, #090b14 70%);
       color: white;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
     }
 
     /* HERO */
@@ -31,6 +39,8 @@
       justify-content: center;
       text-align: center;
       padding: 40px;
+      position: relative;
+      z-index: 1;
     }
 
     h1 {
@@ -96,6 +106,8 @@
       display: flex;
       justify-content: center;
       padding: 140px 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .profile-card {
@@ -106,13 +118,16 @@
       width: 360px;
       text-align: center;
       position: relative;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
-      animation: fadeUp 1s ease forwards;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+      transform-style: preserve-3d;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    .profile-card:hover {
+      transform: translateY(10px) scale(0.98);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
     }
 
     .profile-card::before {
@@ -150,7 +165,6 @@
       color: #b9bbbe;
       font-size: 0.95rem;
       margin-top: 6px;
-      letter-spacing: 0.3px;
     }
 
     footer {
@@ -158,12 +172,15 @@
       padding: 40px 0 30px;
       font-size: 0.8rem;
       color: #8b8fa3;
+      position: relative;
+      z-index: 1;
     }
   </style>
 </head>
 
 <body>
-  <!-- HERO -->
+  <canvas id="snow"></canvas>
+
   <section class="hero">
     <div>
       <h1>❄️ GridBot</h1>
@@ -173,35 +190,24 @@
       </p>
 
       <div class="buttons">
-        <a
-          class="btn invite"
-          href="https://discord.com/oauth2/authorize?client_id=1383739264671551488&permissions=280576&integration_type=0&scope=bot"
-          target="_blank"
-        >
-          Bot invite
-        </a>
+        <a class="btn invite"
+           href="https://discord.com/oauth2/authorize?client_id=1383739264671551488&permissions=280576&integration_type=0&scope=bot"
+           target="_blank">Bot invite</a>
 
-        <a
-          class="btn server"
-          href="https://discord.gg/T7zXbTTAn4"
-          target="_blank"
-        >
-          Join the dc server
-        </a>
+        <a class="btn server"
+           href="https://discord.gg/T7zXbTTAn4"
+           target="_blank">Join the dc server</a>
       </div>
 
       <div class="scroll">scroll down ↓</div>
     </div>
   </section>
 
-  <!-- PROFILE -->
   <section class="profile-section">
     <div class="profile-card">
-      <img
-        class="avatar"
+      <img class="avatar"
         src="https://cdn.discordapp.com/avatars/1305574290988466260/3b37446ac9705548a4b8ae8da1ce63ce.png?size=4096"
-        alt="Discord Avatar"
-      />
+        alt="Discord Avatar">
 
       <div class="username">redtree266</div>
       <div class="display">galaxtree • developer</div>
@@ -211,5 +217,62 @@
   <footer>
     © 2026 • Built with GitHub Pages
   </footer>
+
+  <script>
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
+
+    let w, h, flakes = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    function makeFlakes() {
+      flakes = [];
+      for (let i = 0; i < 120; i++) {
+        flakes.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2 + 1,
+          s: Math.random() + 0.5
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(255,255,255,0.8)";
+      ctx.beginPath();
+
+      flakes.forEach(f => {
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      });
+
+      ctx.fill();
+      move();
+      requestAnimationFrame(draw);
+    }
+
+    function move() {
+      flakes.forEach(f => {
+        f.y += f.s * f.s;
+        f.x += Math.sin(f.y * 0.01);
+
+        if (f.y > h) {
+          f.y = -5;
+          f.x = Math.random() * w;
+        }
+      });
+    }
+
+    makeFlakes();
+    draw();
+  </script>
 </body>
 </html>
