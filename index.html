@@ -19,7 +19,6 @@
 
     body {
       margin: 0;
-      min-height: 200vh;
       background: radial-gradient(circle at top, #1e2a47, #090b14 70%);
       color: white;
     }
@@ -31,15 +30,58 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 40px;
     }
 
     h1 {
       font-size: 3rem;
       font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .desc {
+      color: #c7cad3;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.5;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      text-align: center;
+    }
+
+    .btn.invite {
+      background: linear-gradient(135deg, #5865f2, #404eed);
+      color: white;
+      box-shadow: 0 10px 30px rgba(88, 101, 242, 0.45);
+    }
+
+    .btn.server {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
     }
 
     .scroll {
-      margin-top: 30px;
+      margin-top: 45px;
       font-size: 0.9rem;
       color: #aaa;
       animation: float 2.5s ease-in-out infinite;
@@ -50,23 +92,22 @@
       50% { transform: translateY(8px); }
     }
 
-    /* PROFILE SECTION */
     .profile-section {
       display: flex;
       justify-content: center;
-      padding: 120px 20px;
+      padding: 140px 20px;
     }
 
     .profile-card {
       background: rgba(20, 22, 40, 0.85);
       backdrop-filter: blur(16px);
       border-radius: 26px;
-      padding: 40px;
+      padding: 42px;
       width: 360px;
       text-align: center;
       position: relative;
-      animation: fadeUp 1s ease forwards;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.7);
+      animation: fadeUp 1s ease forwards;
     }
 
     @keyframes fadeUp {
@@ -74,18 +115,12 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Animated outline */
     .profile-card::before {
       content: "";
       position: absolute;
       inset: -2px;
       border-radius: 28px;
-      background: linear-gradient(
-        120deg,
-        #5865f2,
-        #9b59ff,
-        #5865f2
-      );
+      background: linear-gradient(120deg, #5865f2, #9b59ff, #5865f2);
       background-size: 300% 300%;
       animation: glow 6s linear infinite;
       z-index: -1;
@@ -117,18 +152,50 @@
       margin-top: 6px;
       letter-spacing: 0.3px;
     }
+
+    footer {
+      text-align: center;
+      padding: 40px 0 30px;
+      font-size: 0.8rem;
+      color: #8b8fa3;
+    }
   </style>
 </head>
 
 <body>
+  <!-- HERO -->
   <section class="hero">
     <div>
       <h1>❄️ GridBot</h1>
+      <p class="desc">
+        <strong>Discord best economy bot 🔥</strong><br>
+        Very fun economy bot with alot of commands, good small community.
+      </p>
+
+      <div class="buttons">
+        <a
+          class="btn invite"
+          href="https://discord.com/oauth2/authorize?client_id=1383739264671551488&permissions=280576&integration_type=0&scope=bot"
+          target="_blank"
+        >
+          Bot invite
+        </a>
+
+        <a
+          class="btn server"
+          href="https://discord.gg/T7zXbTTAn4"
+          target="_blank"
+        >
+          Join the dc server
+        </a>
+      </div>
+
       <div class="scroll">scroll down ↓</div>
     </div>
   </section>
 
-  <section class="profile-section" id="about">
+  <!-- PROFILE -->
+  <section class="profile-section">
     <div class="profile-card">
       <img
         class="avatar"
@@ -137,8 +204,12 @@
       />
 
       <div class="username">redtree266</div>
-      <div class="display">galaxtree</div>
+      <div class="display">galaxtree • developer</div>
     </div>
   </section>
+
+  <footer>
+    © 2026 • Built with GitHub Pages
+  </footer>
 </body>
 </html>
